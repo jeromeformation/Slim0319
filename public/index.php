@@ -17,7 +17,7 @@ $route = $app->get("/", function (ServerRequestInterface $request, ResponseInter
 });
 $route->setName('homepage');
 
-$app->group('/projet', function() {
+$app->group('/projet', function () {
     // Création d'une page de détail des projets
     // Nouveauté : on ajoute une variable dans l'URL avec les accolades
     $this->get("/{id:\d+}", function (ServerRequestInterface $request, ResponseInterface $response, ?array $args) {
