@@ -1,0 +1,14 @@
+{
+    "name": "jerome/slim0319",
+    "description": "Projet utilisant Slim Framework en version 3 - Portfolio",
+    "type": "project",
+    "authors": [
+        {
+            "name": "jerome",
+            "email": "ambroise.jerome.formation@gmail.com"
+        }
+    ],
+    "require": {
+        "slim/slim": "^3.12"
+    }
+}
