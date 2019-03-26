@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Controller\AboutController;
 use App\Controller\ContactController;
 use App\Controller\ProjectController;
 use Psr\Container\ContainerInterface;
@@ -48,8 +49,9 @@ $container[ProjectController::class] = function (ContainerInterface $container) 
 $container[ContactController::class] = function (ContainerInterface $container) {
     return new ContactController($container->get('view'));
 };
-
-
+$container[AboutController::class] = function (ContainerInterface $container) {
+    return new AboutController($container->get('view'));
+};
 
 // Création d'une route
 $route = $app->get("/", function (ServerRequestInterface $request, ResponseInterface $response, ?array $args) {
@@ -71,6 +73,9 @@ $app->group('/projet', function () {
 
 // Page de contact
 $app->get('/contact',ContactController::class .':contact')->setName('app_contact');
+
+// Page à propos
+$app->get('/a-propos', AboutController::class . ':about')->setName('app_about');
 
 // Création et renvoi de la réponse au navigateur
 $app->run();
