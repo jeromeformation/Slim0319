@@ -1,7 +1,9 @@
 <?php
 
 
+use App\Controller\ContactController;
 use App\Controller\ProjectController;
+use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\App;
@@ -22,7 +24,7 @@ $app = new App($config);
 $container = $app->getContainer();
 
 // Register component on container
-$container['view'] = function ($container) {
+$container['view'] = function (ContainerInterface $container) {
     $view = new \Slim\Views\Twig(dirname(__DIR__) . '/templates', [
         'cache' => false
     ]);
@@ -35,9 +37,18 @@ $container['view'] = function ($container) {
     return $view;
 };
 
-$container[ProjectController::class] = function ($container) {
+// On définit une clef "ProjectController" pour expliquer au conteneur comment instancier "ProjectController"
+// Cette clef sera appelée automatiquement par le routeur
+$container[ProjectController::class] = function (ContainerInterface $container) {
+    // On retourne une instance de ProjectController en "envoyant" TWIG
+    // On obtient TWIG en envoyant la clef "view" du conteneur
     return new ProjectController($container->get('view'));
 };
+
+$container[ContactController::class] = function (ContainerInterface $container) {
+    return new ContactController($container->get('view'));
+};
+
 
 
 // Création d'une route
@@ -57,6 +68,9 @@ $app->group('/projet', function () {
     // Page de création
     $this->get("/creation", ProjectController::class .':create')->setName('app_project_create');
 });
+
+// Page de contact
+$app->get('/contact',ContactController::class .':contact')->setName('app_contact');
 
 // Création et renvoi de la réponse au navigateur
 $app->run();
