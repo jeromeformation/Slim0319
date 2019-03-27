@@ -4,20 +4,28 @@ use App\Controller\AboutController;
 use App\Controller\ContactController;
 use App\Controller\ProjectController;
 use Psr\Container\ContainerInterface;
+use Slim\Http\Environment;
+use Slim\Http\Uri;
+use Slim\Views\Twig;
+use Twig\Extension\DebugExtension;
 
 // Récupération du conteneur grâce à App
 $container = $app->getContainer();
 
 // Configuration de TWIG
 $container['view'] = function (ContainerInterface $container) {
-    $view = new \Slim\Views\Twig(dirname(__DIR__) . '/templates', [
+    $view = new Twig(dirname(__DIR__) . '/templates', [
         'cache' => false,
-        'strict_variables' => true
+        'strict_variables' => true,
+        'debug' => true
     ]);
 
-    // Instantiate and add Slim specific extension
+    // Ajout de l'extension de debug de TWIG
+    $view->addExtension(new DebugExtension());
+
+    // Extension de base de TWIG
     $router = $container->get('router');
-    $uri = \Slim\Http\Uri::createFromEnvironment(new \Slim\Http\Environment($_SERVER));
+    $uri = Uri::createFromEnvironment(new Environment($_SERVER));
     $view->addExtension(new Slim\Views\TwigExtension($router, $uri));
 
     return $view;

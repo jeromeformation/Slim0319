@@ -1,6 +1,9 @@
 {% extends 'base.twig' %}
 
 {% block body %}
+
+    {{ dump(project) }}
+
     <h1>{{ project["name"] }}</h1>
     <p class="text-muted">
         Développé du {{ project.startedAt.format('d/m/Y') }}
@@ -10,7 +13,7 @@
     <h2>Les langages utilisés</h2>
     <ul>
         {% for language in project['languages'] %}
-            <li>{{ language }}</li>
+            <li>{{ language | upper }}</li>
         {% endfor %}
     </ul>
 

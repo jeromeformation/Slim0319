@@ -6,6 +6,7 @@
     <arg name="colors"></arg>
 
     <file>src</file>
+    <file>config</file>
     <file>public/index.php</file>
 
     <rule ref="PSR2"></rule>
