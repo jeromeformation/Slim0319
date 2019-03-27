@@ -11,7 +11,8 @@ $container = $app->getContainer();
 // Configuration de TWIG
 $container['view'] = function (ContainerInterface $container) {
     $view = new \Slim\Views\Twig(dirname(__DIR__) . '/templates', [
-        'cache' => false
+        'cache' => false,
+        'strict_variables' => true
     ]);
 
     // Instantiate and add Slim specific extension

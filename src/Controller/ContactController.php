@@ -1,8 +1,8 @@
 <?php
 namespace App\Controller;
 
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Views\Twig;
 
 class ContactController
@@ -17,7 +17,7 @@ class ContactController
         $this->twig = $twig;
     }
 
-    public function contact(ServerRequestInterface $request, ResponseInterface $response, ?array $args): ResponseInterface
+    public function contact(Request $request, Response $response, ?array $args): Response
     {
         return $this->twig->render($response, 'contact.twig');
     }

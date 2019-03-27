@@ -1,5 +1,15 @@
 {% extends 'base.twig' %}
 
 {% block body %}
-    <h1>Détail du projet (vue twig)</h1>
+    <h1>{{ project["name"] }}</h1>
+    <p class="text-muted">Développé du {{ project.startedAt }} au {{ project.finishedAt }}</p>
+    <p>{{ project.description | raw('html') }}</p>
+
+    <h2>Les langages utilisés</h2>
+    <ul>
+        {% for language in project['languages'] %}
+            <li>{{ language }}</li>
+        {% endfor %}
+    </ul>
+
 {% endblock %}
