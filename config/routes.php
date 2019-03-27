@@ -22,7 +22,7 @@ $app->group('/projet', function () {
 });
 
 // Page de contact
-$app->get('/contact',ContactController::class .':contact')->setName('app_contact');
+$app->get('/contactez-nous',ContactController::class .':contact')->setName('app_contact');
 
 // Page à propos
 $app->get('/a-propos', AboutController::class . ':about')->setName('app_about');

@@ -17,14 +17,24 @@ class ProjectController
         $this->twig = $twig;
     }
 
+
+    /**
+     * @param ServerRequestInterface $request
+     * @param ResponseInterface $response
+     * @param array|null $args
+     * @return ResponseInterface
+     * @throws \Exception
+     */
     public function show(ServerRequestInterface $request, ResponseInterface $response, ?array $args)
     {
+        $startedAt = new \DateTime('2019-01-01');
+        $finishedAt = new \DateTime();
 
         $project = [
             "id" => 100,
             "name" => "Super site !!!",
-            "startedAt" => '2019-01-01',
-            "finishedAt" => '2019-03-27',
+            "startedAt" => $startedAt,
+            "finishedAt" => $finishedAt,
             "description" => <<<EOT
 <h2>Site avec Slim Framework</h2>
 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus alias, dignissimos distinctio dolor, eaque 
