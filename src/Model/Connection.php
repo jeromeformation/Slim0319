@@ -41,7 +41,7 @@ class Connection
     }
 
     /**
-     * Execute un requête SQL
+     * Execute une requête SQL
      * @param string $query - Requête SQL
      * @param string|null $className - Eventuelle classe dans laquelle sera stocké le résultat
      * @return array
@@ -55,7 +55,6 @@ class Connection
         } else {
             $resultat = $pdoStatement->fetchAll(\PDO::FETCH_CLASS, $className);
         }
-
 
         return $resultat;
     }

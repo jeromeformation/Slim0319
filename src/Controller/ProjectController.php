@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\Repository\ProjectRepository;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Views\Twig;
@@ -12,9 +13,15 @@ class ProjectController
      */
     private $twig;
 
-    public function __construct(Twig $twig)
+    /**
+     * @var ProjectRepository
+     */
+    private $projectRepository;
+
+    public function __construct(Twig $twig, ProjectRepository $projectRepository)
     {
         $this->twig = $twig;
+        $this->projectRepository = $projectRepository;
     }
 
 

@@ -3,6 +3,8 @@
 use App\Controller\AboutController;
 use App\Controller\ContactController;
 use App\Controller\ProjectController;
+use App\Model\Connection;
+use App\Repository\ProjectRepository;
 use Psr\Container\ContainerInterface;
 use Slim\Http\Environment;
 use Slim\Http\Uri;
@@ -36,7 +38,10 @@ $container['view'] = function (ContainerInterface $container) {
 $container[ProjectController::class] = function (ContainerInterface $container) {
     // On retourne une instance de ProjectController en "envoyant" TWIG
     // On obtient TWIG en envoyant la clef "view" du conteneur
-    return new ProjectController($container->get('view'));
+    return new ProjectController(
+        $container->get('view'),
+        $container->get(ProjectRepository::class)
+    );
 };
 
 $container[ContactController::class] = function (ContainerInterface $container) {
@@ -44,4 +49,17 @@ $container[ContactController::class] = function (ContainerInterface $container) 
 };
 $container[AboutController::class] = function (ContainerInterface $container) {
     return new AboutController($container->get('view'));
+};
+
+$container[ProjectRepository::class] = function (ContainerInterface $container) {
+    return new ProjectRepository(
+        $container->get(Connection::class)
+    );
+};
+$container[Connection::class] = function (ContainerInterface $container) {
+    return new Connection(
+        $container['settings']['database_name'],
+        $container['settings']['database_user'],
+        $container['settings']['database_pass']
+    );
 };
