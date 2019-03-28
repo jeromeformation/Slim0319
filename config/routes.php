@@ -18,7 +18,7 @@ $app->group('/projet', function () {
     $this->get("/creation", ProjectController::class .':create')->setName('app_project_create');
 
     // Création d'une page de détail
-    $this->get("/{id:\d+}", ProjectController::class .':show')->setName('app_project_show');
+    $this->get("/{slug}", ProjectController::class .':show')->setName('app_project_show');
 });
 
 // Page de contact

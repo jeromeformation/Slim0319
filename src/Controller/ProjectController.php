@@ -34,24 +34,8 @@ class ProjectController
      */
     public function show(ServerRequestInterface $request, ResponseInterface $response, ?array $args)
     {
-        $startedAt = new \DateTime('2019-01-01');
-        $finishedAt = new \DateTime();
-
-        $project = [
-            "id" => 100,
-            "name" => "Super site !!!",
-            "startedAt" => $startedAt,
-            "finishedAt" => $finishedAt,
-            "description" => <<<EOT
-<h2>Site avec Slim Framework</h2>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus alias, dignissimos distinctio dolor, eaque 
-facilis fuga incidunt iusto nemo nulla perferendis placeat possimus provident  repellat sapiente tenetur totam, vero
-voluptas?</p>
-EOT
-            ,
-            "image" => "site.png",
-            "languages" => ["html5", "css3", "php7.1", "sql"]
-        ];
+        // Récupération du projet
+        $project = $this->projectRepository->findBySlug($args['slug']);
 
         // On retourne une réponse
         return $this->twig->render($response, 'project/show.twig', [
