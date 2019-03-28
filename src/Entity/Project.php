@@ -24,9 +24,9 @@ class Project
     private $startedAt;
 
     /**
- * @var \DateTime
- */
-    private $fineshedAt;
+     * @var \DateTime
+     */
+    private $finishedAt;
 
     /**
      * @var string
@@ -37,6 +37,16 @@ class Project
      * @var string[]
      */
     private $languages;
+
+    public function __construct()
+    {
+        if(!is_null($this->started_at)) {
+            $this->startedAt = new \DateTime($this->started_at);
+        }
+        if(!is_null($this->finished_at)) {
+            $this->finishedAt = new \DateTime($this->finished_at);
+        }
+    }
 
     /**
      * @return int
@@ -111,21 +121,19 @@ class Project
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTime|null
      */
-    public function getFineshedAt(): \DateTime
+    public function getFinishedAt(): ?\DateTime
     {
-        return $this->fineshedAt;
+        return $this->finishedAt;
     }
 
     /**
-     * @param \DateTime $fineshedAt
-     * @return Project
+     * @param \DateTime $finishedAt
      */
-    public function setFineshedAt(\DateTime $fineshedAt): Project
+    public function setFinishedAt(\DateTime $finishedAt): void
     {
-        $this->fineshedAt = $fineshedAt;
-        return $this;
+        $this->finishedAt = $finishedAt;
     }
 
     /**
