@@ -29,6 +29,7 @@ class FormUtility
             case 'text':
             case 'number':
             case 'email':
+            case 'date':
                 $widget = $this->getHTMLInput($type, $id, $oldValue, $placeholder);
                 break;
             case 'textarea':

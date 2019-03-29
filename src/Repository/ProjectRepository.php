@@ -56,4 +56,10 @@ class ProjectRepository
         // Retourner le projet s'il a été trouvé
         return $resultat;
     }
+
+    public function insert($getParsedBody)
+    {
+        // todo : convertir le tableau pour compléter le requête SQL
+        $this->connection->query('INSERT INTO project VALUES ');
+    }
 }

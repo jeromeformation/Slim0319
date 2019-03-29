@@ -51,6 +51,16 @@ class ProjectController
      */
     public function create(IRequest $request, IResponse $response, ?array $args): IResponse
     {
+        if ($request->getMethod() === 'POST') {
+            // todo: vérifier tous les champs
+
+            $this->projectRepository->insert($request->getParsedBody());
+
+            // todo : redirection
+        }
+
+
+
         // On retourne une réponse
         return $this->twig->render($response, 'project/create.twig');
     }

@@ -18,7 +18,7 @@ $app->group('/projet', function () {
     $this->get("/", ProjectController::class .':list')->setName('app_project_list');
 
     // Page de création
-    $this->get("/creation", ProjectController::class .':create')->setName('app_project_create');
+    $this->map(['GET', 'POST'], "/creation", ProjectController::class .':create')->setName('app_project_create');
 
     // Création d'une page de détail
     $this->get("/{slug}", ProjectController::class .':show')->setName('app_project_show');
