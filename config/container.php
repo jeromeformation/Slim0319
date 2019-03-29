@@ -30,6 +30,9 @@ $container['view'] = function (ContainerInterface $container) {
     $uri = Uri::createFromEnvironment(new Environment($_SERVER));
     $view->addExtension(new Slim\Views\TwigExtension($router, $uri));
 
+    // Extensions personnalisées
+    $view->addExtension(new \App\TwigExtension\FormExtension($router, $uri));
+
     return $view;
 };
 

@@ -30,12 +30,28 @@ class ProjectRepository
         // Former la requête
         $query = "SELECT * FROM project WHERE slug = :slug";
         // Demander le résultat de la requête à la classe Connection
-        // todo : Implémenter "queryPrepared"
         $resultat = $this->connection->queryPrepared(
             $query,
             [':slug' => $slug],
             Project::class,
             false
+        );
+        // Retourner le projet s'il a été trouvé
+        return $resultat;
+    }
+
+    /**
+     * Retourne l'ensemble des projets en BDD dans un tableau d'objet de Project
+     * @return Project[]
+     */
+    public function findAll(): array
+    {
+        // Former la requête
+        $query = "SELECT * FROM project";
+        // Demander le résultat de la requête à la classe Connection
+        $resultat = $this->connection->query(
+            $query,
+            Project::class
         );
         // Retourner le projet s'il a été trouvé
         return $resultat;

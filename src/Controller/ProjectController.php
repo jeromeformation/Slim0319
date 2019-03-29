@@ -2,8 +2,8 @@
 namespace App\Controller;
 
 use App\Repository\ProjectRepository;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\ResponseInterface as IResponse;
+use Psr\Http\Message\ServerRequestInterface as IRequest;
 use Slim\Views\Twig;
 
 class ProjectController
@@ -24,15 +24,45 @@ class ProjectController
         $this->projectRepository = $projectRepository;
     }
 
+    /**
+     * Liste des projets
+     * @param IRequest $request
+     * @param IResponse $response
+     * @param array|null $args
+     * @return IResponse
+     */
+    public function list(IRequest $request, IResponse $response, ?array $args): IResponse
+    {
+        // Récupération du projet
+        $projects = $this->projectRepository->findAll();
+
+        // On retourne une réponse
+        return $this->twig->render($response, 'project/list.twig', [
+            'projects' => $projects
+        ]);
+    }
 
     /**
-     * @param ServerRequestInterface $request
-     * @param ResponseInterface $response
+     * todo: Création d'un projet à implémenter avec formulaire
+     * @param IRequest $request
+     * @param IResponse $response
      * @param array|null $args
-     * @return ResponseInterface
-     * @throws \Exception
+     * @return IResponse
      */
-    public function show(ServerRequestInterface $request, ResponseInterface $response, ?array $args)
+    public function create(IRequest $request, IResponse $response, ?array $args): IResponse
+    {
+        // On retourne une réponse
+        return $this->twig->render($response, 'project/create.twig');
+    }
+
+    /**
+     * Détail d'un projet grâce à son slug
+     * @param IRequest $request
+     * @param IResponse $response
+     * @param array|null $args - Contient le slug de l'URL
+     * @return IResponse
+     */
+    public function show(IRequest $request, IResponse $response, ?array $args): IResponse
     {
         // Récupération du projet
         $project = $this->projectRepository->findBySlug($args['slug']);
@@ -43,9 +73,4 @@ class ProjectController
         ]);
     }
 
-    public function create(ServerRequestInterface $request, ResponseInterface $response, ?array $args)
-    {
-        // On retourne une réponse
-        return $response->getBody()->write('<h1>Création d\'un projet</h1>');
-    }
 }

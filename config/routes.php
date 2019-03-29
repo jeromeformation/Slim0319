@@ -14,6 +14,9 @@ $route->setName('homepage');
 
 // Groupe des routes du projet
 $app->group('/projet', function () {
+    // Page de liste des projets
+    $this->get("/", ProjectController::class .':list')->setName('app_project_list');
+
     // Page de création
     $this->get("/creation", ProjectController::class .':create')->setName('app_project_create');
 
